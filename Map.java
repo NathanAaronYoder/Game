@@ -1,3 +1,4 @@
+//https://bbcsulb.desire2learn.com/d2l/le/dropbox/600630/489567/DownloadAttachment?fid=21706897
 public class Map
 {
 	private char[][] map;
@@ -14,7 +15,7 @@ public class Map
 		//If the user reaches the finish, then they have passed the level. The hero’s hp is
 		//replenished (if needed) and the hero moves to the next map. Re-load the first map
 		//for level 4, second map for level 5, etc
-		for (int i = 0; i < revealed.length; i++)
+    for (int i = 0; i < revealed.length; i++)
 		{
 			for (int j = 0; j < revealed[0].length; j++)
 			{
@@ -25,50 +26,15 @@ public class Map
 		switch (mapNum)
 		{
 			case 1:
-				map = 
-				{
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''}
-				};
+				map = new char[][] { {'a','s','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'} };
 			case 2:
-				map = 
-				{
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''}
-				};
+				map = new char[][] { {'a','s','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'} };
 			case 3:
-				map = 
-				{
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''}
-				};
+				map = new char[][] { {'a','s','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'} };
 			case 4:
-				map = 
-				{
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''}
-				};
+				map = new char[][] { {'a','s','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'} };
 			case 5:
-				map = 
-				{
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''},
-					{'','','','',''}
-				};
+				map = new char[][] { {'a','s','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'} };
 		}
 	}
 
@@ -85,9 +51,19 @@ public class Map
 			{
 				if (revealed[i][j])
 				{
-					System.out.print(map[i][j] + " ");
+          if (i == p.getX() && j == p.getY())
+          {
+            System.out.println("s ");
+          }
+          else
+          {
+            System.out.print(map[i][j] + " ");
+          }
 				}
-				System.out.print("x ")
+        else
+        {
+          System.out.print("x ");
+        }
 			}
 			System.out.println();
 		}
