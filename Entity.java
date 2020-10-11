@@ -9,6 +9,7 @@ abstract class Entity
 	{
 		name = n;
 		maxHp = mHp;
+		hp = mHp;
 	}
 
 	public abstract String attack(Entity e);
@@ -58,6 +59,6 @@ abstract class Entity
 
 	public String toString()
 	{
-		return name + ": " + hp + "/" + maxHp + ".";
+		return name + "\nHP: " + hp + "/" + maxHp;
 	}
 }

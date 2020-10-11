@@ -15,7 +15,7 @@ public class Map
 		//If the user reaches the finish, then they have passed the level. The hero’s hp is
 		//replenished (if needed) and the hero moves to the next map. Re-load the first map
 		//for level 4, second map for level 5, etc
-    for (int i = 0; i < revealed.length; i++)
+    	for (int i = 0; i < revealed.length; i++)
 		{
 			for (int j = 0; j < revealed[0].length; j++)
 			{
@@ -92,6 +92,6 @@ public class Map
 	public void removeCharAtLoc(Point p)
 	{
 		//Not sure what to do here
-		//map[p.getX()][p.getY()];
+		map[p.getX()][p.getY()] = 'n';
 	}
 }
