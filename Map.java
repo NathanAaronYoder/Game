@@ -1,4 +1,7 @@
-//https://bbcsulb.desire2learn.com/d2l/le/dropbox/600630/489567/DownloadAttachment?fid=21706897
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class Map
 {
 	private char[][] map;
@@ -10,11 +13,24 @@ public class Map
 		revealed = new boolean[5][5];
 	}
 
+	public Map(Map m)
+	{
+		map = m.getMap();
+		revealed = m.getRevealed();
+	}
+
+	public char[][] getMap()
+	{
+		return map;
+	}
+
+	public char[][] getRevealed()
+	{
+		return revealed;
+	}
+
 	public void loadMap(int mapNum)
 	{
-		//If the user reaches the finish, then they have passed the level. The hero’s hp is
-		//replenished (if needed) and the hero moves to the next map. Re-load the first map
-		//for level 4, second map for level 5, etc
     	for (int i = 0; i < revealed.length; i++)
 		{
 			for (int j = 0; j < revealed[0].length; j++)
@@ -23,19 +39,26 @@ public class Map
 			}
 		}
 
-		switch (mapNum)
-		{
-			case 1:
-				map = new char[][] { {'a','s','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'} };
-			case 2:
-				map = new char[][] { {'a','s','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'} };
-			case 3:
-				map = new char[][] { {'a','s','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'} };
-			case 4:
-				map = new char[][] { {'a','s','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'} };
-			case 5:
-				map = new char[][] { {'a','s','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'}, {'a','a','a','a','a'} };
-		}
+		try {
+    	  	File myObj = new File("Map" + mapNum + ".txt");
+    	  	Scanner myReader = new Scanner(myObj);
+    	  	int row = 0;
+    	  	while (myReader.hasNextLine()) {
+    	  	  	String data = myReader.nextLine();
+    	  	  	String[] tokens = data.split(" ");
+ 
+ 				char ch;
+				for (int i = 0; i < tokens.length; i++)
+				{
+					ch = token[i].charAt(0);
+					map[row][i] = ch;
+				}
+    	  	  	row++;
+    	  	}
+    	  	myReader.close();
+    		} catch (FileNotFoundException e) {
+    		  	e.printStackTrace();
+    	}
 	}
 
 	public char getCharAtLoc(Point p)
@@ -51,19 +74,19 @@ public class Map
 			{
 				if (revealed[i][j])
 				{
-          if (i == p.getX() && j == p.getY())
-          {
-            System.out.println("s ");
-          }
-          else
-          {
-            System.out.print(map[i][j] + " ");
-          }
+          			if (i == p.getX() && j == p.getY())
+          			{
+          			  System.out.println("* ");
+          			}
+          			else
+          			{
+          			  System.out.print(map[i][j] + " ");
+          			}
 				}
-        else
-        {
-          System.out.print("x ");
-        }
+        		else
+        		{
+        		  System.out.print("x ");
+        		}
 			}
 			System.out.println();
 		}
@@ -91,7 +114,6 @@ public class Map
 
 	public void removeCharAtLoc(Point p)
 	{
-		//Not sure what to do here
 		map[p.getX()][p.getY()] = 'n';
 	}
 }

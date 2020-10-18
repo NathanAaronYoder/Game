@@ -1,4 +1,3 @@
-//https://www.w3schools.com/java/java_abstract.asp
 abstract class Entity
 {
 	private String name;

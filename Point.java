@@ -21,6 +21,21 @@ public class Point
 		return y;
 	}
 
+	public void translate(int dx, int dy)
+	{
+		x += dx;
+		y += dy;
+	}
+
+	public boolean equals(Point point)
+	{
+		if (point.getX() == x && point.getY() == y)
+		{
+			return true;
+		}
+		return false;
+	}
+
   public String toString()
   {
     return "(" + x + ", " + y + ")";

@@ -8,6 +8,7 @@ public class ItemGenerator
 	//Constructor
 	public ItemGenerator()
 	{
+		//Use File.io to read from ItemList.txt
 		//Add all of the items into the itemList
 		itemList.add(new Item("gem"));
 		itemList.add(new Item("gem"));
@@ -28,9 +29,4 @@ public class ItemGenerator
 		Random rand = new Random(); 
         return itemList.get(rand.nextInt(itemList.size())); 
 	}
-
-	/*public String toString()
-	{
-		//
-	}*/
 }

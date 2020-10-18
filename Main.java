@@ -8,119 +8,251 @@ public class Main
 		Scanner scanner = new Scanner(System.in);
 
 		Map map = new Map();
-		map.loadMap(1);
+		int mapLevel = 1;
+		map.loadMap(mapLevel);
 
 		System.out.println("What is your name, traveler?");
 		String name = scanner.nextLine();
-		Hero user = new Hero();//Not Done
+		Hero user = new Hero(name, map);
 
-		while (user.getHP() > 0)
+		while(true)
 		{
+			System.out.println(user);
+			map.displayMap(user.getLocation());
 
+			char room = '';
+
+			System.out.println("1. Go North");
+			System.out.println("2. Go South");
+			System.out.println("3. Go East");
+			System.out.println("4. Go West");
+			System.out.println("5. Quit");
+			int directionChoice;
+			do {
+				directionChoice = scanner.nextInt();
+			}while(directionChoice == 1 || directionChoice == 2 || directionChoice == 3 || directionChoice == 4 || directionChoice == 5 ||);
+			
+			Point p = user.getLocation();
+			int x = user.getX();
+			int y = user.getY();
+			switch(directionChoice)
+			{
+				case 1:
+					y++;
+				case 2:
+					y--;
+				case 3:
+					x++;
+				case 4:
+					x--;
+			}
+			while(x < 0 || y < 0 || x > 4 || y > 4)
+			{
+				System.out.println("Out of Bounds. Choose a new direction.");
+				directionChoice = scanner.nextInt();
+				p = user.getLocation();
+				x = user.getX();
+				y = user.getY();
+				switch(directionChoice)
+				{
+					case 1:
+						y++;
+					case 2:
+						y--;
+					case 3:
+						x++;
+					case 4:
+						x--;
+				}
+			}
+			switch(directionChoice)
+			{
+				case 1:
+					room = user.goNorth();
+				case 2:
+					room = user.goSouth();
+				case 3:
+					room = user.goEast();
+				case 4:
+					room = user.goWest();
+				case 5:
+					System.out.println("Game Over.");
+					scanner.close();
+					System.exit(0);
+			}
+			map.reveal(user.getLocation());
+			EnemyGenerator enemyGenerator = new EnemyGenerator();
+			ItemGenerator itemGenerator = new ItemGenerator();
+			switch(room)
+			{
+				case 'm':
+					if (!monsterRoom(user, map, enemyGenerator))
+					{
+						System.out.println("Game Over.");
+						scanner.close();
+						System.exit(0);
+					}
+				case 'n':
+					System.out.println("There was nothing here.");
+				case 'i':
+					itemRoom(user, map, itemGenerator);
+				case 's':
+					System.out.println("You're back at the start.");
+				case 'f':
+					mapLevel++;
+					mapLevel %= 3;
+					map.loadMap(mapLevel);
+					user.drinkPotion();
+			}
 		}
-		System.out.println(user);
-		map.displayMap();
-
-		System.out.println("1. Go North");
-		System.out.println("2. Go South");
-		System.out.println("3. Go East");
-		System.out.println("4. Go West");
-		System.out.println("5. Quit");
-		int directionChoice = myObj.nextInt();//Needs Validation
-		switch(directionChoice)
-		{
-			case 1:
-				user.goNorth();
-			case 2:
-				user.goSouth();
-			case 3:
-				user.goEast();
-			case 4:
-				user.goWest();
-			case 5:
-				System.out.println("Game Over.");
-				System.exit(0);
-		}
-
-		char room = map.getCharAtLoc(user.getLocation());
-		map.reveal(user.getLocation());
-		EnemyGenerator enemyGenerator = new EnemyGenerator();
-		ItemGenerator itemGenerator = new ItemGenerator();
-		switch(room)
-		{
-			case 'm':
-				mosterRoom(user, map, enemyGenerator);
-			case 'n':
-				System.out.println("There was nothing here.");
-			case 'i':
-				itemRoom(user, map, itemGenerator);
-			case 's':
-				System.out.println("You're back at the start.");
-			case 'f':
-				//If the user reaches the finish, then they have passed the level. The hero’s hp is
-				//replenished
-		}
-
 	}
 
-	public static boolean monsterRoom(Hero h, Map m, EnemyGenerator eg, int level)//Why return Boolean
+	public static boolean monsterRoom(Hero h, Map m, EnemyGenerator eg, int level)
 	{
-		Enemy enemy = eg.generateEnemy(level);
-		fight(h, enemy);
+		//Return True if Enemy Dies or no one dies, False if Hero Dies
+		Enemy enemy = eg.generateEnemy(mapLevel);
+		boolean fightOver = false;
+		System.out.println("You've encountered a " + enemy.getName());
+		Scanner scanner = new Scanner(System.in);
 
-	}
-
-	public boolean fight(Hero h, Enemy e)//Why return Boolean, issue with case 2 and main funcion
-	{
-		boolean notRunningAway = true;
-		System.out.println("You've encountered a " + e.getName());
-		while (h.getHP() > 0 && e.getHP() > 0 && notRunningAway)
+		while (!fightOver)
 		{
-			System.out.println(e);
-			System.out.println("1. Fight\n2. Run Away");
+			System.out.println(enemy);
+			System.out.println("1. Fight");
+			System.out.println("2. Run Away");
 			if (h.hasPotion())
 			{
 				System.out.println("3. Drink Health Potion");
 			}
-			//Get User Input, check for 3
+			int choice;
+			if (user.hasPotion())
+			{
+				do{
+					choice = scanner.nextInt();
+				}while(choice == 1 || choice == 2 | choice == 3);
+			}
+			else
+			{
+				do{
+					choice = scanner.nextInt();
+				}while(choice == 1 || choice == 2)
+			}
 			switch(choice)
 			{
 				case 1:
+					if (!fight(h, enemy))
+					{
+						fightOver = true;
+					}
 				case 2:
 					Random rand = new Random();
-					int randNum = rand.nextInt(4);//4 directions, maybe static var
+					int randNum;
+					char room = '';
+
+					Point p;
+					int x, y;
+					int y;
+					do{
+						p = h.getLocation();
+						x = h.getX();
+						y = h.getY();
+						switch(randNum)
+						{
+							case 1:
+								y++;
+							case 2:
+								y--;
+							case 3:
+								x++;
+							case 4:
+								x--;
+						}
+						randNum = rand.nextInt(4);//4 directions, maybe static var
+					}while(x < 0 || y < 0 || x > 4 || y > 4);
 					switch(randNum)
 					{
 						case 0:
-							h.goNorth();
+							room = h.goNorth();
 						case 1:
-							h.goEast();
+							room = h.goEast();
 						case 2:
-							h.goSouth();
+							room = h.goSouth();
 						case 3:
-							h.goWest();
+							room = h.goWest();
 					}
-					notRunningAway = false;
+					map.reveal(user.getLocation());
+					EnemyGenerator enemyGenerator = new EnemyGenerator();
+					ItemGenerator itemGenerator = new ItemGenerator();
+					switch(room)
+					{
+						case 'm':
+							if (!monsterRoom(user, map, enemyGenerator))
+							{
+								System.out.println("Game Over.");
+								scanner.close();
+								System.exit(0);
+							}
+						case 'n':
+							System.out.println("There was nothing here.");
+						case 'i':
+							itemRoom(user, map, itemGenerator);
+						case 's':
+							System.out.println("You're back at the start.");
+						case 'f':
+							mapLevel++;
+							mapLevel %= 3;
+							map.loadMap(mapLevel);
+							user.drinkPotion();
+					}
+					fightOver = true;
 				case 3:
 					h.drinkPotion();
 			}
 		}
+
+		scanner.close();
+		if (h.getHP() == 0)
+		{
+			System.out.println("You have died.");
+			return false;
+		}
+		if (enemy.getHP() == 0)
+		{
+			System.out.println("You defeated the " + enemy.getName() + "!");
+			if (pickUpItem(enemy.getItem()))
+			{
+				System.out.println("You received a " + enemy.getItem() + " from its corpse.");
+			}
+			removeCharAtLoc(location);
+			return true;
+		}
+		return true;
+	}
+
+	public static boolean fight(Hero h, Enemy e)
+	{
+		//If Hero or Enemy dies, return false
+		user.attack(e);
+		if (e.getHP() == 0)
+		{
+			return false;
+		}
+		e.attack(user);//Need to define
+		if (user.getHP() == 0)
+		{
+			return false;
+		}
+		return true;
 	}
 
 	public static void itemRoom(Hero h, Map m, ItemGenerator ig)
 	{
 		Item item = ig.generateItem();
+		System.out.println("You found a " + item);
 		if (h.pickUpItem(item))
 		{
-			System.out.println("\nYou found a " + item);
+			System.out.println("You received a " + item);
 			m.removeCharAtLoc(h.getLocation());
-		}
-		else
-		{
-			//if their inventory is already full, then the user has the choice of selecting
-			//an item in their inventory to drop and replace with the new item, or just to drop
-			//the new item
-			System.out.println("\nYour inventory is too full");
 		}
 	}
 }
