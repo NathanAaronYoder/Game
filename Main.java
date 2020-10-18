@@ -20,7 +20,7 @@ public class Main
 			System.out.println(user);
 			map.displayMap(user.getLocation());
 
-			char room = '';
+			char room = ' ';
 
 			System.out.println("1. Go North");
 			System.out.println("2. Go South");
@@ -30,7 +30,7 @@ public class Main
 			int directionChoice;
 			do {
 				directionChoice = scanner.nextInt();
-			}while(directionChoice == 1 || directionChoice == 2 || directionChoice == 3 || directionChoice == 4 || directionChoice == 5 ||);
+			}while(directionChoice == 1 || directionChoice == 2 || directionChoice == 3 || directionChoice == 4 || directionChoice == 5);
 			
 			Point p = user.getLocation();
 			int x = user.getX();
@@ -135,7 +135,7 @@ public class Main
 			{
 				do{
 					choice = scanner.nextInt();
-				}while(choice == 1 || choice == 2)
+				}while(choice == 1 || choice == 2);
 			}
 			switch(choice)
 			{
@@ -147,7 +147,7 @@ public class Main
 				case 2:
 					Random rand = new Random();
 					int randNum;
-					char room = '';
+					char room = ' ';
 
 					Point p;
 					int x, y;

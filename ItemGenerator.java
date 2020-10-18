@@ -8,16 +8,19 @@ public class ItemGenerator
 	//Constructor
 	public ItemGenerator()
 	{
-		//Use File.io to read from ItemList.txt
-		//Add all of the items into the itemList
-		itemList.add(new Item("gem"));
-		itemList.add(new Item("gem"));
-		itemList.add(new Item("Health Potion"));
-		itemList.add(new Item("Shield"));
-		itemList.add(new Item("Bag o' Gold"));
-		itemList.add(new Item("Helm"));
-		itemList.add(new Item("Ring"));
-		itemList.add(new Item("Boots"));
+		Scanner read = null;
+	   try {
+			read = new Scanner(new File("itemList.txt"));
+			while(read.hasNext()) {
+				String line = read.nextLine();
+
+				Item item = new Item(line);
+				itemList.add(item);
+			}
+			read.close();
+	   }catch(FileNotFoundException e){
+	     System.out.println("File Not Found - place file in the project folder. ");
+	   }
 	}
 
 	public Item generateItem()
