@@ -83,6 +83,7 @@ public class Main
 			map.reveal(user.getLocation());
 			ItemGenerator itemGenerator = new ItemGenerator();
 			EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
+			Point start = new Point(map.findStart().getX(), map.findStart().getY());
 			switch(room)
 			{
 				case 'm':
@@ -103,6 +104,10 @@ public class Main
 					mapLevel %= 3;
 					map.loadMap(mapLevel);
 					user.drinkPotion();
+			}
+			if (!map.findStart().equals(start))
+			{
+				mapLevel++;
 			}
 		}
 	}
