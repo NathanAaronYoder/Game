@@ -24,7 +24,7 @@ public class Map
 		return map;
 	}
 
-	public char[][] getRevealed()
+	public boolean[][] getRevealed()
 	{
 		return revealed;
 	}
@@ -50,7 +50,7 @@ public class Map
  				char ch;
 				for (int i = 0; i < tokens.length; i++)
 				{
-					ch = token[i].charAt(0);
+					ch = tokens[i].charAt(0);
 					map[row][i] = ch;
 				}
     	  	  	row++;

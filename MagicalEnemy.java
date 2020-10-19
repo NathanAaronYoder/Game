@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class MagicalEnemy extends Enemy implements Magical
 {
-	public MagicalEnemy(Str n, int mHp, Item i)
+	public MagicalEnemy(String n, int mHp, Item i)
 	{
 		super(n, mHp, i);
 	}

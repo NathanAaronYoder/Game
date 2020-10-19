@@ -1,4 +1,8 @@
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class EnemyGenerator
 {
@@ -48,6 +52,6 @@ public class EnemyGenerator
 		Random rand = new Random();
 		int randNum = rand.nextInt(8);
 		randNum++;
-		return enemyList.get(randnum);
+		return enemyList.get(randNum);
 	}
 }

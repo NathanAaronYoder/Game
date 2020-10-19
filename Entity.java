@@ -1,8 +1,8 @@
-abstract class Entity
+public abstract class Entity
 {
-	private String name;
-	private int maxHp;
-	private int hp;
+	protected String name;
+	protected int maxHp;
+	protected int hp;
 
 	public Entity(String n, int mHp)
 	{

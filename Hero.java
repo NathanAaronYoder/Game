@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Hero extends Entity implements Magical
 {
@@ -15,7 +16,7 @@ public class Hero extends Entity implements Magical
 
 	public String itemsToString()
 	{
-		String itemString;
+		String itemString = "";
 		Item item;
 		itemString += "Inventory:\n";
 		for(int i = 0; i < getNumItems(); i++)
@@ -34,15 +35,15 @@ public class Hero extends Entity implements Magical
 
 	public boolean pickUpItem(Item i)
 	{
-		if (getNumItems() < maxNumberOfItems)
+		if (getNumItems() < 5)
 		{
 			items.add(i);
 			return true;
 		}
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("Your inventory is too full for a " + e.getItem() + ".");
-		System.out.println("1. Leave " + e.getItem());
-		System.out.println("2. Replace an item in your inventory with " + e.getItem());
+		System.out.println("Your inventory is too full for a " + i + ".");
+		System.out.println("1. Leave " + i);
+		System.out.println("2. Replace an item in your inventory with " + i);
 		int inventoryChoice;
 		do{
 			inventoryChoice = scanner.nextInt();
@@ -51,9 +52,9 @@ public class Hero extends Entity implements Magical
 		if (inventoryChoice == 2)
 		{
 			System.out.println("Choose the item to replace");
-			for (int i = 1; i <= 5; i++)
+			for (int index = 1; index <= 5; index++)
 			{
-				System.out.println(i + ". " + items.get(i-1));
+				System.out.println(index + ". " + items.get(index-1));
 			}
 			int itemToReplace = scanner.nextInt();
 			System.out.println(items.get(itemToReplace-1) + "replaced with " + i);
@@ -142,9 +143,9 @@ public class Hero extends Entity implements Magical
 		do{
 			attackChoice = scanner.nextInt();
 		}while(attackChoice == 1 || attackChoice == 2);
-		switch (attackchoice)
+		String str = "";
+		switch(attackChoice)
 		{
-			String str = "";
 			case 1:
 				int maxDamage = e.getMaxHP() * 2;
 				int randomDamage = rand.nextInt(maxDamage);
@@ -155,7 +156,7 @@ public class Hero extends Entity implements Magical
 				System.out.println(Magical.MAGIC_MENU);
 				int magicAttackChoice;//Needs Validation
 				do{
-					magicAttackChoice = scanner.nextInt()
+					magicAttackChoice = scanner.nextInt();
 				}while(magicAttackChoice == 1 || magicAttackChoice == 2 || magicAttackChoice == 3);
 				switch(magicAttackChoice)
 				{

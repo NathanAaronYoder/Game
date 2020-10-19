@@ -6,12 +6,9 @@ public class Enemy extends Entity
 	private Item item;
 
 	//Constructor
-	public Enemy(Str n, int mHp, Item i)
+	public Enemy(String n, int mHp, Item i)
 	{
-		Random rand = new Random();
-		int extraHP = rand.nextInt(4);//Adds up to 3 hp
-		mHp += extraHP;
-		super(n, mHp);
+		super(n, new Random().nextInt(4) + mHp);
 		//Construct item
 		String itemName = i.getName();
 	    item = new Item(itemName);

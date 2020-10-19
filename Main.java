@@ -33,8 +33,8 @@ public class Main
 			}while(directionChoice == 1 || directionChoice == 2 || directionChoice == 3 || directionChoice == 4 || directionChoice == 5);
 			
 			Point p = user.getLocation();
-			int x = user.getX();
-			int y = user.getY();
+			int x = p.getX();
+			int y = p.getY();
 			switch(directionChoice)
 			{
 				case 1:
@@ -51,8 +51,8 @@ public class Main
 				System.out.println("Out of Bounds. Choose a new direction.");
 				directionChoice = scanner.nextInt();
 				p = user.getLocation();
-				x = user.getX();
-				y = user.getY();
+				x = p.getX();
+				y = p.getY();
 				switch(directionChoice)
 				{
 					case 1:
@@ -81,12 +81,12 @@ public class Main
 					System.exit(0);
 			}
 			map.reveal(user.getLocation());
-			EnemyGenerator enemyGenerator = new EnemyGenerator();
 			ItemGenerator itemGenerator = new ItemGenerator();
+			EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
 			switch(room)
 			{
 				case 'm':
-					if (!monsterRoom(user, map, enemyGenerator))
+					if (!monsterRoom(user, map, enemyGenerator, mapLevel))
 					{
 						System.out.println("Game Over.");
 						scanner.close();
@@ -107,10 +107,10 @@ public class Main
 		}
 	}
 
-	public static boolean monsterRoom(Hero h, Map m, EnemyGenerator eg, int level)
+	public static boolean monsterRoom(Hero h, Map m, EnemyGenerator eg, int mapLevel)//how to return map level to main
 	{
 		//Return True if Enemy Dies or no one dies, False if Hero Dies
-		Enemy enemy = eg.generateEnemy(mapLevel);
+		Enemy enemy = eg.generateEnemy();
 		boolean fightOver = false;
 		System.out.println("You've encountered a " + enemy.getName());
 		Scanner scanner = new Scanner(System.in);
@@ -125,7 +125,7 @@ public class Main
 				System.out.println("3. Drink Health Potion");
 			}
 			int choice;
-			if (user.hasPotion())
+			if (h.hasPotion())
 			{
 				do{
 					choice = scanner.nextInt();
@@ -137,6 +137,7 @@ public class Main
 					choice = scanner.nextInt();
 				}while(choice == 1 || choice == 2);
 			}
+			int randNum = 0;
 			switch(choice)
 			{
 				case 1:
@@ -146,16 +147,14 @@ public class Main
 					}
 				case 2:
 					Random rand = new Random();
-					int randNum;
 					char room = ' ';
 
 					Point p;
 					int x, y;
-					int y;
 					do{
 						p = h.getLocation();
-						x = h.getX();
-						y = h.getY();
+						x = p.getX();
+						y = p.getY();
 						switch(randNum)
 						{
 							case 1:
@@ -180,13 +179,13 @@ public class Main
 						case 3:
 							room = h.goWest();
 					}
-					map.reveal(user.getLocation());
-					EnemyGenerator enemyGenerator = new EnemyGenerator();
+					m.reveal(h.getLocation());
 					ItemGenerator itemGenerator = new ItemGenerator();
+					EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
 					switch(room)
 					{
 						case 'm':
-							if (!monsterRoom(user, map, enemyGenerator))
+							if (!monsterRoom(h, m, enemyGenerator, mapLevel))
 							{
 								System.out.println("Game Over.");
 								scanner.close();
@@ -195,14 +194,14 @@ public class Main
 						case 'n':
 							System.out.println("There was nothing here.");
 						case 'i':
-							itemRoom(user, map, itemGenerator);
+							itemRoom(h, m, itemGenerator);
 						case 's':
 							System.out.println("You're back at the start.");
 						case 'f':
 							mapLevel++;
 							mapLevel %= 3;
-							map.loadMap(mapLevel);
-							user.drinkPotion();
+							m.loadMap(mapLevel);
+							h.drinkPotion();
 					}
 					fightOver = true;
 				case 3:
@@ -219,11 +218,11 @@ public class Main
 		if (enemy.getHP() == 0)
 		{
 			System.out.println("You defeated the " + enemy.getName() + "!");
-			if (pickUpItem(enemy.getItem()))
+			if (h.pickUpItem(enemy.getItem()))
 			{
 				System.out.println("You received a " + enemy.getItem() + " from its corpse.");
 			}
-			removeCharAtLoc(location);
+			m.removeCharAtLoc(h.getLocation());
 			return true;
 		}
 		return true;
@@ -232,13 +231,13 @@ public class Main
 	public static boolean fight(Hero h, Enemy e)
 	{
 		//If Hero or Enemy dies, return false
-		user.attack(e);
+		h.attack(e);
 		if (e.getHP() == 0)
 		{
 			return false;
 		}
-		e.attack(user);//Need to define
-		if (user.getHP() == 0)
+		e.attack(h);//Need to define
+		if (h.getHP() == 0)
 		{
 			return false;
 		}
