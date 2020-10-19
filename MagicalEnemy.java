@@ -18,10 +18,13 @@ public class MagicalEnemy extends Enemy implements Magical
 		{
 			case 1:
 				str += magicMissile(e);
+				break;
 			case 2:
 				str += fireball(e);
+				break;
 			case 3:
 				str += thunderclap(e);
+				break;
 		}
 		return str;
 	}

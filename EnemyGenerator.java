@@ -23,26 +23,25 @@ public class EnemyGenerator
 				int hp;
 				char type;
 
-
 				String[] tokens = line.split(",");//["Goblin", "2", "m"]
 				name = tokens[0];//Goblin
 				hp = Integer.parseInt(tokens[1]);//2
 				type = tokens[2].charAt(0);//m
-
 
 				switch(type)
 				{
 					case 'p':
 						Enemy enemy = new Enemy(name, hp, ig.generateItem());//Maybe wrong
 						enemyList.add(enemy);
+						break;
 					case 'm':
 						MagicalEnemy magicalEnemy = new MagicalEnemy(name, hp, ig.generateItem());//Maybe wrong
 						enemyList.add(magicalEnemy);
+						break;
 				}
-
 			}
 			read.close();
-	   }catch(FileNotFoundException e){
+	    }catch(FileNotFoundException e){
 	     System.out.println("File Not Found - place file in the project folder. ");
 	   }
 	}

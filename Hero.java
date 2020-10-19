@@ -12,6 +12,8 @@ public class Hero extends Entity implements Magical
 	{
 		super(n, 25);
 		map = new Map(m);
+		items = new ArrayList<Item>();
+		location = new Point(map.findStart().getX(), map.findStart().getY());
 	}
 
 	public String itemsToString()
@@ -48,7 +50,7 @@ public class Hero extends Entity implements Magical
 		do{
 			inventoryChoice = scanner.nextInt();
 		}
-		while(inventoryChoice == 1 | inventoryChoice == 2);
+		while(inventoryChoice < 1 || inventoryChoice > 2);
 		if (inventoryChoice == 2)
 		{
 			System.out.println("Choose the item to replace");
@@ -142,7 +144,7 @@ public class Hero extends Entity implements Magical
 		int attackChoice;
 		do{
 			attackChoice = scanner.nextInt();
-		}while(attackChoice == 1 || attackChoice == 2);
+		}while(attackChoice < 1 || attackChoice > 2);
 		String str = "";
 		switch(attackChoice)
 		{
@@ -152,21 +154,26 @@ public class Hero extends Entity implements Magical
 				randomDamage++;
 				e.takeDamage(randomDamage);
 				str += name + "attacks " + e.getName() + " for " + randomDamage + " damage.";
+				break;
 			case 2:
 				System.out.println(Magical.MAGIC_MENU);
 				int magicAttackChoice;//Needs Validation
 				do{
 					magicAttackChoice = scanner.nextInt();
-				}while(magicAttackChoice == 1 || magicAttackChoice == 2 || magicAttackChoice == 3);
+				}while(magicAttackChoice < 1 || magicAttackChoice > 3);
 				switch(magicAttackChoice)
 				{
 					case 1:
 						str += magicMissile(e);
+						break;
 					case 2:
 						str += fireball(e);
+						break;
 					case 3:
 						str += thunderclap(e);
+						break;
 				}
+				break;
 		}
 		scanner.close();
 		return str;

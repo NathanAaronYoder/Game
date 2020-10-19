@@ -12,7 +12,7 @@ public class Main
 		map.loadMap(mapLevel);
 
 		System.out.println("What is your name, traveler?");
-		String name = scanner.nextLine();
+		String name = scanner.nextLine();//first time, reveal location
 		Hero user = new Hero(name, map);
 
 		while(true)
@@ -30,7 +30,7 @@ public class Main
 			int directionChoice;
 			do {
 				directionChoice = scanner.nextInt();
-			}while(directionChoice == 1 || directionChoice == 2 || directionChoice == 3 || directionChoice == 4 || directionChoice == 5);
+			}while(directionChoice < 1 || directionChoice > 5);
 			
 			Point p = user.getLocation();
 			int x = p.getX();
@@ -39,12 +39,16 @@ public class Main
 			{
 				case 1:
 					y++;
+					break;
 				case 2:
 					y--;
+					break;
 				case 3:
 					x++;
+					break;
 				case 4:
 					x--;
+					break;
 			}
 			while(x < 0 || y < 0 || x > 4 || y > 4)
 			{
@@ -57,28 +61,37 @@ public class Main
 				{
 					case 1:
 						y++;
+						break;
 					case 2:
 						y--;
+						break;
 					case 3:
 						x++;
+						break;
 					case 4:
 						x--;
+						break;
 				}
 			}
 			switch(directionChoice)
 			{
 				case 1:
 					room = user.goNorth();
+					break;
 				case 2:
 					room = user.goSouth();
+					break;
 				case 3:
 					room = user.goEast();
+					break;
 				case 4:
 					room = user.goWest();
+					break;
 				case 5:
 					System.out.println("Game Over.");
 					scanner.close();
 					System.exit(0);
+					break;
 			}
 			map.reveal(user.getLocation());
 			ItemGenerator itemGenerator = new ItemGenerator();
@@ -93,17 +106,23 @@ public class Main
 						scanner.close();
 						System.exit(0);
 					}
+					break;
 				case 'n':
 					System.out.println("There was nothing here.");
+					break;
 				case 'i':
 					itemRoom(user, map, itemGenerator);
+					break;
 				case 's':
 					System.out.println("You're back at the start.");
+					break;
 				case 'f':
 					mapLevel++;
 					mapLevel %= 3;
 					map.loadMap(mapLevel);
-					user.drinkPotion();
+					user = new Hero(name, map);
+					break;
+					//user.drinkPotion();
 			}
 			if (!map.findStart().equals(start))
 			{
@@ -134,13 +153,13 @@ public class Main
 			{
 				do{
 					choice = scanner.nextInt();
-				}while(choice == 1 || choice == 2 | choice == 3);
+				}while(choice < 1 || choice > 3);
 			}
 			else
 			{
 				do{
 					choice = scanner.nextInt();
-				}while(choice == 1 || choice == 2);
+				}while(choice < 1 || choice > 2);
 			}
 			int randNum = 0;
 			switch(choice)
@@ -150,6 +169,7 @@ public class Main
 					{
 						fightOver = true;
 					}
+					break;
 				case 2:
 					Random rand = new Random();
 					char room = ' ';
@@ -164,12 +184,16 @@ public class Main
 						{
 							case 1:
 								y++;
+								break;
 							case 2:
 								y--;
+								break;
 							case 3:
 								x++;
+								break;
 							case 4:
 								x--;
+								break;
 						}
 						randNum = rand.nextInt(4);//4 directions, maybe static var
 					}while(x < 0 || y < 0 || x > 4 || y > 4);
@@ -196,21 +220,29 @@ public class Main
 								scanner.close();
 								System.exit(0);
 							}
+							break;
 						case 'n':
 							System.out.println("There was nothing here.");
+							break;
 						case 'i':
 							itemRoom(h, m, itemGenerator);
+							break;
 						case 's':
 							System.out.println("You're back at the start.");
+							break;
 						case 'f':
 							mapLevel++;
 							mapLevel %= 3;
 							m.loadMap(mapLevel);
-							h.drinkPotion();
+							h = new Hero(h.getName(), m);
+							break;
+							//h.drinkPotion();
 					}
 					fightOver = true;
+					break;
 				case 3:
 					h.drinkPotion();
+					break;
 			}
 		}
 
