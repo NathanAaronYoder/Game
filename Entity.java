@@ -34,13 +34,11 @@ public abstract class Entity
 		int newHp = hp + h;
 		if (newHp < maxHp)
 		{
-			System.out.println("Prob Not: " + newHp + " " + maxHp);//Needs to Go
 			hp = newHp;
 		}
 		else
 		{
 			hp = maxHp;
-			System.out.println("Max: " + maxHp);//Needs to Go
 		}
 	}
 
