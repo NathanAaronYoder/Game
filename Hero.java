@@ -63,7 +63,6 @@ public class Hero extends Entity implements Magical
 			items.set(itemToReplace-1, i);
 			return true;
 		}
-		//scanner.close();
 		return false;
 	}
 
