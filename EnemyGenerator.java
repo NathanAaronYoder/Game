@@ -51,7 +51,6 @@ public class EnemyGenerator
 	{
 		Random rand = new Random();
 		int randNum = rand.nextInt(8);
-		randNum++;
 		return enemyList.get(randNum);
 	}
 }

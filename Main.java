@@ -38,17 +38,17 @@ public class Main
 			int y = p.getY();
 			switch(directionChoice)
 			{
-				case 1:
-					y++;
+				case 1://North
+					x--;
 					break;
-				case 2:
-					y--;
-					break;
-				case 3:
+				case 2://South
 					x++;
 					break;
-				case 4:
-					x--;
+				case 3://East
+					y++;
+					break;
+				case 4://West
+					y--;
 					break;
 			}
 			while(x < 0 || y < 0 || x > 4 || y > 4)
@@ -60,17 +60,17 @@ public class Main
 				y = p.getY();
 				switch(directionChoice)
 				{
-					case 1:
-						y++;
+					case 1://North
+						x--;
 						break;
-					case 2:
-						y--;
-						break;
-					case 3:
+					case 2://South
 						x++;
 						break;
-					case 4:
-						x--;
+					case 3://East
+						y++;
+						break;
+					case 4://West
+						y--;
 						break;
 				}
 			}
@@ -187,17 +187,17 @@ public class Main
 						randNum = rand.nextInt(4);//4 directions, maybe static var
 						switch(randNum)
 						{
-							case 0:
+							case 0://North
+								x--;
+								break;
+							case 1://South
 								y++;
 								break;
-							case 1:
-								y--;
-								break;
-							case 2:
+							case 2://East
 								x++;
 								break;
-							case 3:
-								x--;
+							case 3://West
+								y--;
 								break;
 						}
 					}while(x < 0 || y < 0 || x > 4 || y > 4);

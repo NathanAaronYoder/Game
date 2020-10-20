@@ -32,9 +32,8 @@ public class MagicalEnemy extends Enemy implements Magical
 	public String magicMissile(Entity e)
 	{
 		String str = "";
-		int maxDamage = e.getMaxHP();
 		Random rand = new Random();
-		int damageToTake = rand.nextInt(10);
+		int damageToTake = rand.nextInt(25);
 		damageToTake++;
 		e.takeDamage(damageToTake);
 		str += name + " hits " + e.getName() + " with a Magic Missile for " + damageToTake + " damage.";
@@ -44,9 +43,8 @@ public class MagicalEnemy extends Enemy implements Magical
   	public String fireball(Entity e)
   	{
   		String str = "";
-		int maxDamage = e.getMaxHP();
 		Random rand = new Random();
-		int damageToTake = rand.nextInt(10);
+		int damageToTake = rand.nextInt(25);
 		damageToTake++;
 		e.takeDamage(damageToTake);
 		str += name + " hits " + e.getName() + " with a Fireball for " + damageToTake + " damage.";
@@ -56,9 +54,8 @@ public class MagicalEnemy extends Enemy implements Magical
   	public String thunderclap(Entity e)
   	{
   		String str = "";
-		int maxDamage = e.getMaxHP();
 		Random rand = new Random();
-		int damageToTake = rand.nextInt(10);
+		int damageToTake = rand.nextInt(25);
 		damageToTake++;
 		e.takeDamage(damageToTake);
 		str += name + " zaps " + e.getName() + " with a Thunderclap for " + damageToTake + " damage.";

@@ -44,9 +44,9 @@ public class Hero extends Entity implements Magical
 			return true;
 		}
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("Your inventory is too full for a " + i + ".");
-		System.out.println("1. Leave " + i);
-		System.out.println("2. Replace an item in your inventory with " + i);
+		System.out.println("Your inventory is too full for a " + i.getName() + ".");
+		System.out.println("1. Leave " + i.getName());
+		System.out.println("2. Replace an item in your inventory with " + i.getName());
 		int inventoryChoice;
 		do{
 			inventoryChoice = scanner.nextInt();
@@ -57,11 +57,12 @@ public class Hero extends Entity implements Magical
 			System.out.println("Choose the item to replace");
 			for (int index = 1; index <= 5; index++)
 			{
-				System.out.println(index + ". " + items.get(index-1));
+				System.out.println(index + ". " + items.get(index-1).getName());
 			}
 			int itemToReplace = scanner.nextInt();
-			System.out.println(items.get(itemToReplace-1) + "replaced with " + i);
+			System.out.println(items.get(itemToReplace-1).getName() + "replaced with " + i.getName());
 			items.set(itemToReplace-1, i);
+			return true;
 		}
 		//scanner.close();
 		return false;
@@ -79,6 +80,16 @@ public class Hero extends Entity implements Magical
 			else
 			{
 				hp += 25;
+			}
+		}
+		//Take Health Potion out of inventory
+		boolean dropped = false;
+		for (int i = 0; i < getNumItems(); i++)
+		{
+			if (items.get(i).getName().equals("Health Potion") && !dropped)
+			{
+				dropItem(i);
+				dropped = true;
 			}
 		}
 	}
@@ -154,7 +165,7 @@ public class Hero extends Entity implements Magical
 				int randomDamage = rand.nextInt(maxDamage);
 				randomDamage++;
 				e.takeDamage(randomDamage);
-				str += name + "attacks " + e.getName() + " for " + randomDamage + " damage.";
+				str += name + " attacks " + e.getName() + " for " + randomDamage + " damage.";
 				break;
 			case 2:
 				System.out.println(Magical.MAGIC_MENU);
