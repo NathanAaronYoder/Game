@@ -28,7 +28,7 @@ public class Enemy extends Entity
 		int randomDamage = rand.nextInt(maxDamage);
 		randomDamage++;
 		e.takeDamage(randomDamage);
-		str += name + "attacks " + e.getName() + " for " + randomDamage + " damage.";
+		str += name + " attacks " + e.getName() + " for " + randomDamage + " damage.";
 		return str;
 	}
 }

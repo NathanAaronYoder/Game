@@ -8,7 +8,7 @@ public class Main
 		Scanner scanner = new Scanner(System.in);
 
 		Map map = new Map();
-		int mapLevel = 1;
+		int mapLevel = 0;
 		map.loadMap(mapLevel);
 
 		System.out.println("What is your name, traveler?");
@@ -118,11 +118,13 @@ public class Main
 					System.out.println("You're back at the start.");
 					break;
 				case 'f':
+					System.out.println("You've reached the finish. Next Level:");
 					mapLevel++;
 					mapLevel %= 3;
 					map.loadMap(mapLevel);
-					user = new Hero(name, map);
+					user = new Hero(name, map);//Bug: Inventory is getting reset
 					start = new Point(map.findStart().getX(), map.findStart().getY());
+					map.reveal(start);
 					break;
 					//user.drinkPotion();
 			}
@@ -237,10 +239,12 @@ public class Main
 							System.out.println("You're back at the start.");
 							break;
 						case 'f':
+							System.out.println("You've reached the finish. Next Level:");
 							mapLevel++;
 							mapLevel %= 3;
 							m.loadMap(mapLevel);
 							h = new Hero(h.getName(), m);
+							m.reveal(h.getLocation());
 							break;
 							//h.drinkPotion();
 					}
@@ -252,7 +256,7 @@ public class Main
 			}
 		}
 
-		scanner.close();
+		//scanner.close();
 		if (h.getHP() == 0)
 		{
 			System.out.println("You have died.");
@@ -274,12 +278,12 @@ public class Main
 	public static boolean fight(Hero h, Enemy e)
 	{
 		//If Hero or Enemy dies, return false
-		h.attack(e);
+		System.out.println(h.attack(e));
 		if (e.getHP() == 0)
 		{
 			return false;
 		}
-		e.attack(h);//Need to define
+		System.out.println(e.attack(h));//Need to define
 		if (h.getHP() == 0)
 		{
 			return false;

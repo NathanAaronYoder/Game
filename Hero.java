@@ -25,7 +25,7 @@ public class Hero extends Entity implements Magical
 		for(int i = 0; i < getNumItems(); i++)
 		{
 			item = items.get(i);
-			itemString += i + ". " + item.getName();
+			itemString += (i+1) + ". " + item.getName();
 			itemString += "\n";
 		}
 		return itemString;
@@ -63,7 +63,7 @@ public class Hero extends Entity implements Magical
 			System.out.println(items.get(itemToReplace-1) + "replaced with " + i);
 			items.set(itemToReplace-1, i);
 		}
-		scanner.close();
+		//scanner.close();
 		return false;
 	}
 
@@ -105,25 +105,25 @@ public class Hero extends Entity implements Magical
 		return location;
 	}
 
-	public char goNorth()
+	public char goEast()
 	{
 		location.translate(0, 1);
 		return map.getCharAtLoc(location);
 	}
 
-	public char goSouth()
+	public char goWest()
 	{
 		location.translate(0, -1);
 		return map.getCharAtLoc(location);
 	}
 
-	public char goEast()
+	public char goSouth()
 	{
 		location.translate(1, 0);
 		return map.getCharAtLoc(location);
 	}
 
-	public char goWest()
+	public char goNorth()
 	{
 		location.translate(-1, 0);
 		return map.getCharAtLoc(location);
@@ -176,7 +176,7 @@ public class Hero extends Entity implements Magical
 				}
 				break;
 		}
-		scanner.close();
+		//scanner.close();
 		return str;
 	}
 
@@ -188,7 +188,7 @@ public class Hero extends Entity implements Magical
 		int damageToTake = rand.nextInt(maxDamage);
 		damageToTake++;
 		e.takeDamage(damageToTake);
-		str += name + "hits " + e.getName() + "with a Magic Missile for " + damageToTake + " damage.";
+		str += name + " hits " + e.getName() + " with a Magic Missile for " + damageToTake + " damage.";
 		return str;
 	}
 
@@ -200,7 +200,7 @@ public class Hero extends Entity implements Magical
 		int damageToTake = rand.nextInt(maxDamage);
 		damageToTake++;
 		e.takeDamage(damageToTake);
-		str += name + "hits " + e.getName() + "with a Fireball for " + damageToTake + " damage.";
+		str += name + " hits " + e.getName() + " with a Fireball for " + damageToTake + " damage.";
 		return str;
   	}
 
@@ -212,7 +212,7 @@ public class Hero extends Entity implements Magical
 		int damageToTake = rand.nextInt(maxDamage);
 		damageToTake++;
 		e.takeDamage(damageToTake);
-		str += name + "hits " + e.getName() + "with a Thunderclap for " + damageToTake + " damage.";
+		str += name + " zaps " + e.getName() + " with a Thunderclap for " + damageToTake + " damage.";
 		return str;
   	}
 }

@@ -31,6 +31,7 @@ public class Map
 
 	public void loadMap(int mapNum)
 	{
+		mapNum++;
     	for (int i = 0; i < revealed.length; i++)
 		{
 			for (int j = 0; j < revealed[0].length; j++)

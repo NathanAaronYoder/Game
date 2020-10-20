@@ -37,7 +37,7 @@ public class MagicalEnemy extends Enemy implements Magical
 		int damageToTake = rand.nextInt(10);
 		damageToTake++;
 		e.takeDamage(damageToTake);
-		str += name + "hits " + e.getName() + "with a Magic Missile for " + damageToTake + " damage.";
+		str += name + " hits " + e.getName() + " with a Magic Missile for " + damageToTake + " damage.";
 		return str;
 	}
 
@@ -49,7 +49,7 @@ public class MagicalEnemy extends Enemy implements Magical
 		int damageToTake = rand.nextInt(10);
 		damageToTake++;
 		e.takeDamage(damageToTake);
-		str += name + "hits " + e.getName() + "with a Fireball for " + damageToTake + " damage.";
+		str += name + " hits " + e.getName() + " with a Fireball for " + damageToTake + " damage.";
 		return str;
   	}
 
@@ -61,7 +61,7 @@ public class MagicalEnemy extends Enemy implements Magical
 		int damageToTake = rand.nextInt(10);
 		damageToTake++;
 		e.takeDamage(damageToTake);
-		str += name + "hits " + e.getName() + "with a Thunderclap for " + damageToTake + " damage.";
+		str += name + " zaps " + e.getName() + " with a Thunderclap for " + damageToTake + " damage.";
 		return str;
   	}
 }
