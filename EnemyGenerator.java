@@ -13,6 +13,7 @@ public class EnemyGenerator
 	{
 		//Goblin,2,m
 		//name,hp,type
+		enemyList = new ArrayList<Enemy>();
 		Scanner read = null;
 	   try {
 			read = new Scanner(new File("enemyList.txt"));

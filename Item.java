@@ -8,14 +8,14 @@ public class Item
 	}
 	
 	public String getName() {
-	     return name;
+	    return name;
 	}
 	
 	public void setName(String name) {
-	     this.name = name;
+	    this.name = name;
 	}
 	
-	public String toString() {//vs getName()
+	/*public String toString() {//vs getName()
 	    return name;
-	}
+	}*/
 }

@@ -12,6 +12,7 @@ public class ItemGenerator
 	public ItemGenerator()
 	{
 		Scanner read = null;
+		itemList = new ArrayList<Item>();
 	   try {
 			read = new Scanner(new File("itemList.txt"));
 			while(read.hasNext()) {

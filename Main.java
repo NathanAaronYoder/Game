@@ -14,6 +14,7 @@ public class Main
 		System.out.println("What is your name, traveler?");
 		String name = scanner.nextLine();//first time, reveal location
 		Hero user = new Hero(name, map);
+		map.reveal(user.getLocation());
 
 		while(true)
 		{
@@ -121,6 +122,7 @@ public class Main
 					mapLevel %= 3;
 					map.loadMap(mapLevel);
 					user = new Hero(name, map);
+					start = new Point(map.findStart().getX(), map.findStart().getY());
 					break;
 					//user.drinkPotion();
 			}
@@ -180,33 +182,37 @@ public class Main
 						p = h.getLocation();
 						x = p.getX();
 						y = p.getY();
+						randNum = rand.nextInt(4);//4 directions, maybe static var
 						switch(randNum)
 						{
-							case 1:
+							case 0:
 								y++;
 								break;
-							case 2:
+							case 1:
 								y--;
 								break;
-							case 3:
+							case 2:
 								x++;
 								break;
-							case 4:
+							case 3:
 								x--;
 								break;
 						}
-						randNum = rand.nextInt(4);//4 directions, maybe static var
 					}while(x < 0 || y < 0 || x > 4 || y > 4);
 					switch(randNum)
 					{
 						case 0:
 							room = h.goNorth();
+							break;
 						case 1:
 							room = h.goEast();
+							break;
 						case 2:
 							room = h.goSouth();
+							break;
 						case 3:
 							room = h.goWest();
+							break;
 					}
 					m.reveal(h.getLocation());
 					ItemGenerator itemGenerator = new ItemGenerator();
@@ -257,7 +263,7 @@ public class Main
 			System.out.println("You defeated the " + enemy.getName() + "!");
 			if (h.pickUpItem(enemy.getItem()))
 			{
-				System.out.println("You received a " + enemy.getItem() + " from its corpse.");
+				System.out.println("You received a " + enemy.getItem().getName() + " from its corpse.");
 			}
 			m.removeCharAtLoc(h.getLocation());
 			return true;
@@ -284,10 +290,10 @@ public class Main
 	public static void itemRoom(Hero h, Map m, ItemGenerator ig)
 	{
 		Item item = ig.generateItem();
-		System.out.println("You found a " + item);
+		System.out.println("You found a " + item.getName());
 		if (h.pickUpItem(item))
 		{
-			System.out.println("You received a " + item);
+			System.out.println("You received a " + item.getName());
 			m.removeCharAtLoc(h.getLocation());
 		}
 	}

@@ -13,7 +13,7 @@ public class Map
 		revealed = new boolean[5][5];
 	}
 
-	public Map(Map m)
+	/*public Map(Map m)
 	{
 		map = m.getMap();
 		revealed = m.getRevealed();
@@ -27,7 +27,7 @@ public class Map
 	public boolean[][] getRevealed()
 	{
 		return revealed;
-	}
+	}*/
 
 	public void loadMap(int mapNum)
 	{
@@ -76,7 +76,7 @@ public class Map
 				{
           			if (i == p.getX() && j == p.getY())
           			{
-          			  System.out.println("* ");
+          			  System.out.print("* ");
           			}
           			else
           			{

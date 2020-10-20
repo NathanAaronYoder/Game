@@ -11,7 +11,8 @@ public class Hero extends Entity implements Magical
 	public Hero(String n, Map m)
 	{
 		super(n, 25);
-		map = new Map(m);
+		map = m;
+		//map = new Map(m);
 		items = new ArrayList<Item>();
 		location = new Point(map.findStart().getX(), map.findStart().getY());
 	}
@@ -24,7 +25,7 @@ public class Hero extends Entity implements Magical
 		for(int i = 0; i < getNumItems(); i++)
 		{
 			item = items.get(i);
-			itemString += i + ". " + item.toString();
+			itemString += i + ". " + item.getName();
 			itemString += "\n";
 		}
 		return itemString;
