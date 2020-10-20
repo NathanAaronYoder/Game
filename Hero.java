@@ -12,7 +12,6 @@ public class Hero extends Entity implements Magical
 	{
 		super(n, 25);
 		map = m;
-		//map = new Map(m);
 		items = new ArrayList<Item>();
 		location = new Point(map.findStart().getX(), map.findStart().getY());
 	}
@@ -73,6 +72,8 @@ public class Hero extends Entity implements Magical
 		if (hasPotion())
 		{
 			//Increase 25 HP
+			heal(25);
+			/*
 			if (hp + 25 > maxHp)
 			{
 				hp = maxHp;
@@ -81,6 +82,7 @@ public class Hero extends Entity implements Magical
 			{
 				hp += 25;
 			}
+			*/
 		}
 		//Take Health Potion out of inventory
 		boolean dropped = false;

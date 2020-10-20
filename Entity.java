@@ -1,6 +1,6 @@
 public abstract class Entity
 {
-	protected String name;
+	protected String name;//Protected?
 	protected int maxHp;
 	protected int hp;
 
@@ -32,13 +32,15 @@ public abstract class Entity
 	{
 		//Adds hp up to maximum of the max hp
 		int newHp = hp + h;
-		if (newHp > maxHp)
+		if (newHp < maxHp)
 		{
+			System.out.println("Prob Not: " + newHp + " " + maxHp);//Needs to Go
 			hp = newHp;
 		}
 		else
 		{
 			hp = maxHp;
+			System.out.println("Max: " + maxHp);//Needs to Go
 		}
 	}
 

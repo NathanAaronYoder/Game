@@ -12,9 +12,10 @@ public class Main
 		map.loadMap(mapLevel);
 
 		System.out.println("What is your name, traveler?");
-		String name = scanner.nextLine();//first time, reveal location
+		String name = scanner.nextLine();
 		Hero user = new Hero(name, map);
-		map.reveal(user.getLocation());
+
+		map.reveal(user.getLocation());//Edge Case because first location won't be revealed otherwise
 
 		while(true)
 		{
@@ -122,11 +123,10 @@ public class Main
 					mapLevel++;
 					mapLevel %= 3;
 					map.loadMap(mapLevel);
-					user = new Hero(name, map);//Bug: Inventory is getting reset
+					user.heal(25);// = new Hero(name, map);//Bug: Inventory is getting reset
 					start = new Point(map.findStart().getX(), map.findStart().getY());
 					map.reveal(start);
 					break;
-					//user.drinkPotion();
 			}
 			if (!map.findStart().equals(start))
 			{
@@ -243,10 +243,9 @@ public class Main
 							mapLevel++;
 							mapLevel %= 3;
 							m.loadMap(mapLevel);
-							h = new Hero(h.getName(), m);
+							h.heal(25);
 							m.reveal(h.getLocation());
 							break;
-							//h.drinkPotion();
 					}
 					fightOver = true;
 					break;
@@ -256,7 +255,6 @@ public class Main
 			}
 		}
 
-		//scanner.close();
 		if (h.getHP() == 0)
 		{
 			System.out.println("You have died.");

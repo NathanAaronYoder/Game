@@ -13,22 +13,6 @@ public class Map
 		revealed = new boolean[5][5];
 	}
 
-	/*public Map(Map m)
-	{
-		map = m.getMap();
-		revealed = m.getRevealed();
-	}
-
-	public char[][] getMap()
-	{
-		return map;
-	}
-
-	public boolean[][] getRevealed()
-	{
-		return revealed;
-	}*/
-
 	public void loadMap(int mapNum)
 	{
 		mapNum++;

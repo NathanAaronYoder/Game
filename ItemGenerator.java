@@ -31,8 +31,6 @@ public class ItemGenerator
 	{
 		//Return a random Item
 		
-		//Generate a random number
-		//return itemList.get(randomNum)
 		Random rand = new Random(); 
         return itemList.get(rand.nextInt(itemList.size())); 
 	}

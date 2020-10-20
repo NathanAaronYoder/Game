@@ -2,21 +2,18 @@ import java.util.Random;
 
 public class Enemy extends Entity
 {
-	//State
 	private Item item;
 
 	//Constructor
 	public Enemy(String n, int mHp, Item i)
 	{
 		super(n, new Random().nextInt(4) + mHp);
-		//Construct item
 		String itemName = i.getName();
 	    item = new Item(itemName);
 	}
 
 	public Item getItem()
 	{
-		//Get Item
 		return item;
 	}
 

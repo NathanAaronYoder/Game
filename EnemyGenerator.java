@@ -11,8 +11,6 @@ public class EnemyGenerator
 
 	public EnemyGenerator(ItemGenerator ig)
 	{
-		//Goblin,2,m
-		//name,hp,type
 		enemyList = new ArrayList<Enemy>();
 		Scanner read = null;
 	   try {
