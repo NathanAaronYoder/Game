@@ -20,12 +20,12 @@ public class Hero extends Entity implements Magical
 	{
 		String itemString = "";
 		Item item;
-		itemString += "Inventory:\n";
+		itemString += "Inventory:";
 		for(int i = 0; i < getNumItems(); i++)
 		{
 			item = items.get(i);
-			itemString += (i+1) + ". " + item.getName();
 			itemString += "\n";
+			itemString += (i+1) + ". " + item.getName();
 		}
 		return itemString;
 	}

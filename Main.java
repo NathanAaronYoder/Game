@@ -119,7 +119,7 @@ public class Main
 					System.out.println("You're back at the start.");
 					break;
 				case 'f':
-					System.out.println("You've reached the finish. Next Level:");
+					System.out.println("You've reached the finish.");
 					mapLevel++;
 					mapLevel %= 3;
 					map.loadMap(mapLevel);
@@ -239,7 +239,7 @@ public class Main
 							System.out.println("You're back at the start.");
 							break;
 						case 'f':
-							System.out.println("You've reached the finish. Next Level:");
+							System.out.println("You've reached the finish.");
 							mapLevel++;
 							mapLevel %= 3;
 							m.loadMap(mapLevel);
@@ -251,6 +251,7 @@ public class Main
 					break;
 				case 3:
 					h.drinkPotion();
+					System.out.println(h);
 					break;
 			}
 		}
