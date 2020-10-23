@@ -15,8 +15,9 @@ public class Main
 		String name = scanner.nextLine();
 		Hero user = new Hero(name, map);
 
-		map.reveal(user.getLocation());//Edge Case because first location won't be revealed otherwise
+		map.reveal(user.getLocation());//Handles Edge Case because first location won't be revealed otherwise
 
+		//Program will exit when the User dies or ends the game
 		while(true)
 		{
 			System.out.println(user);
@@ -30,10 +31,14 @@ public class Main
 			System.out.println("4. Go West");
 			System.out.println("5. Quit");
 			int directionChoice;
-			do {
+			//Validate Input
+			do 
+			{
 				directionChoice = scanner.nextInt();
-			}while(directionChoice < 1 || directionChoice > 5);
+			}
+			while(directionChoice < 1 || directionChoice > 5);
 			
+			//Simulates the user moving to a direction to check if they are out of bounds
 			Point p = user.getLocation();
 			int x = p.getX();
 			int y = p.getY();
@@ -52,6 +57,7 @@ public class Main
 					y--;
 					break;
 			}
+			//Check if Simulation has led user out of bounds
 			while(x < 0 || y < 0 || x > 4 || y > 4)
 			{
 				System.out.println("Out of Bounds. Choose a new direction.");
@@ -75,6 +81,7 @@ public class Main
 						break;
 				}
 			}
+			//Input has been validated, the user is now moving
 			switch(directionChoice)
 			{
 				case 1:
@@ -90,6 +97,7 @@ public class Main
 					room = user.goWest();
 					break;
 				case 5:
+					//User chooses to end the game
 					System.out.println("Game Over.");
 					scanner.close();
 					System.exit(0);
@@ -104,6 +112,7 @@ public class Main
 				case 'm':
 					if (!monsterRoom(user, map, enemyGenerator, mapLevel))
 					{
+						//User has died
 						System.out.println("Game Over.");
 						scanner.close();
 						System.exit(0);
@@ -120,14 +129,17 @@ public class Main
 					break;
 				case 'f':
 					System.out.println("You've reached the finish.");
+					final int POTION_HEAL_AMOUNT = 25;
+					final int NUM_MAPS = 3;
 					mapLevel++;
-					mapLevel %= 3;
+					mapLevel %= NUM_MAPS;
 					map.loadMap(mapLevel);
-					user.heal(25);// = new Hero(name, map);//Bug: Inventory is getting reset
+					user.heal(POTION_HEAL_AMOUNT);
 					start = new Point(map.findStart().getX(), map.findStart().getY());
 					map.reveal(start);
 					break;
 			}
+			//This is necessary in case the user finds the finish when the user encounters an enemy but runs away
 			if (!map.findStart().equals(start))
 			{
 				mapLevel++;
@@ -135,9 +147,15 @@ public class Main
 		}
 	}
 
-	public static boolean monsterRoom(Hero h, Map m, EnemyGenerator eg, int mapLevel)//how to return map level to main
+	/** * The Hero has entered a monster Room and is given some options on how to continue
+	* @param h hero that entered the monster room
+	* @param m current map
+	* @param eg generates the enemy in the room
+	* @param mapLevel the current map level
+	* @return True if Enemy Dies or no one dies, false if Hero Dies
+	*/
+	public static boolean monsterRoom(Hero h, Map m, EnemyGenerator eg, int mapLevel)
 	{
-		//Return True if Enemy Dies or no one dies, False if Hero Dies
 		Enemy enemy = eg.generateEnemy();
 		boolean fightOver = false;
 		System.out.println("You've encountered a " + enemy.getName());
@@ -153,38 +171,50 @@ public class Main
 				System.out.println("3. Drink Health Potion");
 			}
 			int choice;
+			//Validate Input
 			if (h.hasPotion())
 			{
-				do{
+				do
+				{
 					choice = scanner.nextInt();
-				}while(choice < 1 || choice > 3);
+				}
+				while(choice < 1 || choice > 3);
 			}
 			else
 			{
-				do{
+				do
+				{
 					choice = scanner.nextInt();
-				}while(choice < 1 || choice > 2);
+				}
+				while(choice < 1 || choice > 2);
 			}
 			int randNum = 0;
 			switch(choice)
 			{
 				case 1:
+					//User decides to fight the enemy
 					if (!fight(h, enemy))
 					{
+						//Enemy or Hero has died
+						//Loop of fighting is broken
 						fightOver = true;
 					}
 					break;
 				case 2:
+					//User Runs Away in a random direction
 					Random rand = new Random();
 					char room = ' ';
 
+					//Validate Input
+					//Simulate the direction the Hero is running in to check if it is out of bounds
 					Point p;
 					int x, y;
-					do{
+					do
+					{
 						p = h.getLocation();
 						x = p.getX();
 						y = p.getY();
-						randNum = rand.nextInt(4);//4 directions, maybe static var
+						randNum = rand.nextInt(4);//4 directions
 						switch(randNum)
 						{
 							case 0://North
@@ -200,7 +230,9 @@ public class Main
 								y--;
 								break;
 						}
-					}while(x < 0 || y < 0 || x > 4 || y > 4);
+					}
+					while(x < 0 || y < 0 || x > 4 || y > 4);
+					//Input is valid, the Hero moves in a random direction
 					switch(randNum)
 					{
 						case 0:
@@ -219,6 +251,11 @@ public class Main
 					m.reveal(h.getLocation());
 					ItemGenerator itemGenerator = new ItemGenerator();
 					EnemyGenerator enemyGenerator = new EnemyGenerator(itemGenerator);
+					/*
+					Simulates the room the user randomly goes into
+					The difference between this switch statement and the similar one in the main function is that this one occurs when
+					the user runs away from a monster into a random direction whereas the one in the main function is when the user
+					*/chooses which direction to move to
 					switch(room)
 					{
 						case 'm':
@@ -240,24 +277,29 @@ public class Main
 							break;
 						case 'f':
 							System.out.println("You've reached the finish.");
+							final int POTION_HEAL_AMOUNT = 25;
+							final int NUM_MAPS = 3;
 							mapLevel++;
-							mapLevel %= 3;
+							mapLevel %= NUM_MAPS;
 							m.loadMap(mapLevel);
-							h.heal(25);
+							h.heal(POTION_HEAL_AMOUNT);
 							m.reveal(h.getLocation());
 							break;
 					}
 					fightOver = true;
 					break;
 				case 3:
+					//User Drinks a Health Potion
 					h.drinkPotion();
 					System.out.println(h);
 					break;
 			}
 		}
 
+		//Now that the fight is over, we don't know who died so we have to check
 		if (h.getHP() == 0)
 		{
+			//User died, the game is over
 			System.out.println("You have died.");
 			return false;
 		}
@@ -274,15 +316,21 @@ public class Main
 		return true;
 	}
 
+	/** * The Hero fights the Enemy
+	* @param h hero in the fight
+	* @param e enemy in the fight
+	* @return If Hero or Enemy dies, return false
+	*/
 	public static boolean fight(Hero h, Enemy e)
 	{
-		//If Hero or Enemy dies, return false
+		//Hero attacks the Enemy first
 		System.out.println(h.attack(e));
 		if (e.getHP() == 0)
 		{
 			return false;
 		}
-		System.out.println(e.attack(h));//Need to define
+		//If Enemy survives the Hero's attack, the Enemy attacks the Hero
+		System.out.println(e.attack(h));
 		if (h.getHP() == 0)
 		{
 			return false;
@@ -290,6 +338,11 @@ public class Main
 		return true;
 	}
 
+	/** * The Hero has entered a room with an item and interacts with it
+	* @param h the hero that entered the item room
+	* @param m the current map
+	* @param ig generates the item in the room
+	*/
 	public static void itemRoom(Hero h, Map m, ItemGenerator ig)
 	{
 		Item item = ig.generateItem();
