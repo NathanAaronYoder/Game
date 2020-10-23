@@ -255,7 +255,8 @@ public class Main
 					Simulates the room the user randomly goes into
 					The difference between this switch statement and the similar one in the main function is that this one occurs when
 					the user runs away from a monster into a random direction whereas the one in the main function is when the user
-					*/chooses which direction to move to
+					chooses which direction to move to
+					*/
 					switch(room)
 					{
 						case 'm':
